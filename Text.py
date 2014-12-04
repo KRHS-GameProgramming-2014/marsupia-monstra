@@ -5,4 +5,3 @@ class Text():
 			self.rect.center = pos
 	
 	
-	
