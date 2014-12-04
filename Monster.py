@@ -4,10 +4,8 @@ class Monster():
 
 	def place(self):
 		self.rect.center = pos
-	moves = ['tackle'
-			]
 	def attacks(attribute)
-		moves += 'pompous pebble'
+		moves = ['silly slap']
 		if attribute == 'rock':
 			moves += 'pompous pebble'
 		if attribute == 'lightning':
@@ -18,3 +16,9 @@ class Monster():
 			moves += 'benign breeze'
 		if attribute == 'water':
 			moves += 'petty precipitation'
+	def stats
+		attack
+		defence
+		speed
+		maxhp
+		exp
