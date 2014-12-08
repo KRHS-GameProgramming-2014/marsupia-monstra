@@ -3,13 +3,13 @@ from Tkinter import *
 root = Tk()
 
 	
-	
 text1 = Text(root, height=20, width=35)
-photo=PhotoImage(file='marsupiamonstra.png')
+photo=PhotoImage(file='')
 text1.insert(END,'\n')
 text1.image_create(END, image=photo)
 
 text1.pack(side=LEFT)
+
 
 text2 = Text(root, height=20, width=35)
 scroll = Scrollbar(root, command=text2.yview)
