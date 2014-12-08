@@ -2,17 +2,17 @@ from Tkinter import *
 
 def attack():
    filewin = Toplevel(root)
-   button = Button(filewin, text="Do nothing button")
+   button = Button(filewin, text="NOTHING")
    button.pack()
    
 def switchMonster():
    filewin = Toplevel(root)
-   button = Button(filewin, text="Do nothing button")
+   button = Button(filewin, text="NOTHING")
    button.pack()
 
 
    
-root = Tk(PlayerMonster, EnemyMonster)
+root = Tk()
 menubar = Menu(root)
 filemenu = Menu(menubar, tearoff=0)
 filemenu.add_command(label="Tackle", command=attack)
