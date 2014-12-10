@@ -1,4 +1,4 @@
-python "BattleMenu.py"
+python "MonsterMain.py"
 
 pause
 del "%0"
