@@ -1,11 +1,11 @@
 from Tkinter import *
-
+from pygame import *
 root = Tk()
 
 	
 	
 text1 = Text(root, height=20, width=35)
-photo=PhotoImage(file='marsupiamonstra.png')
+photo= pygame.image.load('marsupiamonstra.png')
 text1.insert(END,'\n')
 text1.image_create(END, image=photo)
 

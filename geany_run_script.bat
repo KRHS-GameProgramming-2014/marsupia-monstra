@@ -1,4 +1,4 @@
-python "MonsterMain.py"
+python "Text.py"
 
 pause
 del "%0"
