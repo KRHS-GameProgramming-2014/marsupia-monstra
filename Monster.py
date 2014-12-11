@@ -1,4 +1,4 @@
-
+from pygame import *
 
 class Monster():
 	def __init__(self, image, attack, defence, speed, maxhp, exp, attribute):
