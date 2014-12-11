@@ -4,7 +4,7 @@ root = Tk()
 
 	
 text1 = Text(root, height=20, width=35)
-photo=PhotoImage(file='image')
+photo=PhotoImage(file='marsupimonstra.png')
 text1.insert(END,'\n')
 text1.image_create(END, image=photo)
 
