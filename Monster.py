@@ -1,7 +1,8 @@
-from pygame import *
+import pygame
+
 
 class Monster():
-	def __init__(self, image, attack, defence, speed, maxhp, exp, attribute):
+	def __init__(self, image, attack, defence, speed, maxhp, exp, attribute=""):
 		self.image = pygame.image.load(image)
 
 	def place(self):
