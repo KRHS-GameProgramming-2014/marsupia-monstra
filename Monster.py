@@ -1,3 +1,5 @@
+from pygame import *
+
 class Monster():
 	def __init__(self, image, attack, defence, speed, maxhp, exp, attribute):
 		self.image = pygame.image.load(image)
@@ -5,7 +7,7 @@ class Monster():
 	def place(self):
 		self.rect.center = pos
 	def attacks(attribute):
-		moves = ['silly slap']
+		moves = ['simple slap']
 		if attribute == 'rock':
 			moves += 'pompous pebble'
 		if attribute == 'lightning':
@@ -16,5 +18,5 @@ class Monster():
 			moves += 'benign breeze'
 		if attribute == 'water':
 			moves += 'petty precipitation'
-	def stats(attack, defence, speed, maxhp, exp):
+	def stats(attack, defence, speed, maxhp, hp, exp):
 		print "stats"
