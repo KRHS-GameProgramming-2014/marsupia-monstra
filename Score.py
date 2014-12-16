@@ -1,4 +1,5 @@
 from pygame import *
+from Text import *
 
 class Score(Text):
         def __init__(self, pos, baseText = "Stats: ", textSize = 12, textColor=(255,255,255), font = None):
