@@ -26,6 +26,6 @@ while True:
             pygame.quit()
             sys.exit()
  
-    clock.tick(20)
+    clock.tick(60)
 
 
