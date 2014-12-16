@@ -1,31 +1,22 @@
-import pygame, sys
-from pygame.locals import *
- 
-pygame.init()
- 
-pygame.display.set_caption('font example')
-size = [640, 480]
-screen = pygame.display.set_mode(size)
- 
-clock = pygame.time.Clock()
- 
-basicfont = pygame.font.SysFont(None, 48)
-text = basicfont.render('Marsupia Monstra', True, (255, 0, 0), (255, 255, 255))
-textrect = text.get_rect()
-textrect.centerx = screen.get_rect().centerx
-textrect.centery = screen.get_rect().centery
- 
-screen.fill((255, 255, 255))
-screen.blit(text, textrect)
- 
-pygame.display.update()
- 
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
- 
-    clock.tick(20)
+import pygame
 
+class Text():
+        def __init__(self, pos, text = "", textSize = 12, textColor=(255,255,255), font = None):
+                self.text = text
+                self.textColor = textColor
+                self.font = pygame.font.Font(font, textSize)
+                self.image = self.font.render(self.text, 1, textColor)
+                self.rect = self.image.get_rect()
+                self.place(pos)
+                
+        def place(self, pos):
+                self.rect.center = pos
+                
+        def setText(self, text):
+                self.text = text
+                self.image = self.font.render(text, 1, textColor)
+                self.rect = self.image.get_rect(center = self.rect.center)
+                
+        def update(self, width, height):
+                pass
 
