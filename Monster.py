@@ -1,5 +1,5 @@
 import pygame
-
+import random
 
 HalfEffect = ["electricgrass", "firewater", "watergrass", "groundgrass", "grassgrass", "waterwater", "firefire", "electricelectric"]
 DoubleEffect = ["electricwater", "waterfire", "waterground", "grasswater", "grassground", "groundfire", "groundelectric"]
@@ -13,7 +13,7 @@ class Move():
 
 
 class Monster():
-	def __init__(self, number=69, name = "sexy", lvl = 100, moves = [Move(),Move(),Move(),Move()], element = "normal", hp = "", exp = 0):
+	def __init__(self, number=1, name = "Missingno", lvl = 1, moves = [Move(),Move(),Move(),Move()], element = "normal", hp = "", exp = 0):
 		self.name = name
 		self.lvl = lvl
 		if hp == "":
@@ -57,3 +57,24 @@ class Monster():
 			print "Your %s has leveled up to %s!" % (self.name, str(self.lvl))
 			lp.addtochat("Your %s has leveled up to %s!" % (self.name, str(self.lvl)))
 			self.hp += 3
+
+def getWildMonster():
+    return random.choice(["","","",""])
+def getMove(name):
+	if name=="Tackle":
+		return Monstermove("Tackle", 60, "normal")
+	elif name=="Surf":
+		return Monstermove("Surf", 90, "water")
+	elif name=="Flamethrower":
+		return Pokemove("Flamethrower", 90, "fire")
+	elif name=="Razor Leaf":
+		return Monstermove("Razor Leaf", 90, "grass")
+	elif name=="Thunderbolt":
+		return Monstermove("Thunderbolt", 90, "electric")
+	elif name=="Earthquake":
+		return Monstermove("Earthquake", 90, "earth")
+		
+def getMonster(name, lvl = 1, hp = "", exp = 0):
+    if name=="":
+        return Pokemon(1, "",lvl,[getMove(""),getMove(""),getMove(""),getMove("")],"", hp, exp)
+
