@@ -4,7 +4,7 @@ pygame.init()
 width = 800
 height = 600
 
-
+getMonster("Broku", lvl = 1, hp = "9001", exp = 0)
 
 clock = pygame.time.Clock()
 size = width, height
@@ -14,7 +14,6 @@ screen = pygame.display.set_mode(size)
 
 
 while True:
-	
 	
 	bgColor = r,g,b
 	screen.fill(bgColor)
