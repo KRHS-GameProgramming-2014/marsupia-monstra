@@ -1,31 +1,28 @@
-import pygame, sys
-from pygame.locals import *
- 
+import pygame
+
 pygame.init()
- 
-pygame.display.set_caption('font example')
-size = [640, 480]
+
+red   = 255,  0,  0
+green =   0,255,  0
+blue  =   0,  0,255
+
+size = width, height = 340,240	
 screen = pygame.display.set_mode(size)
- 
-clock = pygame.time.Clock()
- 
-basicfont = pygame.font.SysFont(None, 48)
-text = basicfont.render('Marsupia Monstra', True, (255, 0, 0), (255, 255, 255))
-textrect = text.get_rect()
-textrect.centerx = screen.get_rect().centerx
-textrect.centery = screen.get_rect().centery
- 
-screen.fill((255, 255, 255))
-screen.blit(text, textrect)
- 
+screen.fill(blue)
 pygame.display.update()
- 
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
- 
-    clock.tick(60)
+pygame.key.set_repeat(500,30)
 
+choose = menu(screen, [
+						'Marsupia Monstra'
+                        'Start Game',
+                        'Options',
+                        'Quit Game'], 64,64,None,32,1.4,green,red)
 
+if choose == 0:
+    print "You choose 'Start Game'."
+elif choose == 1:
+    print "You choose 'Options'."
+elif choose == 2:
+    print "You choose 'Quit Game'."
+pygame.quit()
+exit()
