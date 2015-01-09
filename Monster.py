@@ -63,13 +63,13 @@ def getWildMonster():
 def getMove(name):
 	if name=="Tackle":
 		return Move("Tackle", 50, "normal")
-	if name=="Splash":
+	elif name=="Splash":
 		return Move("Splash", randint(0,100), "normal")
-	if name=="Bitch Slap":
+	elif name=="Bitch Slap":
 		return Move("Bitch Slap", 30*randint(2,3), "normal")
-	if name=="Trifecta":
+	elif name=="Trifecta":
 		return Move("Trifecta", 50*randint(1,2), "normal")
-	if name=="Double Edge":
+	elif name=="Double Edge":
 		return Move("Double Edge", 80, "normal")
 	elif name=="Surf":
 		return Move("Surf", 80, "water")
@@ -93,7 +93,7 @@ def getMove(name):
 		return Move("Aftershocks", 20*randint(2,6), "ground")
 	elif name=="Part the Red Sea":
 		return Move("Part the Red Sea", 2000, "water")
-	elif name=="Go Super Saiyan":
+	elif name=="Super Saiyan 1":
 		return Monve("Go Super Saiyan", 1, "electric")
 	elif name=="Trolololol":
 		return Monve("Trolololol", 0, "normal")
@@ -113,7 +113,7 @@ def getMonster(name, lvl = 1, hp = "", exp = 0):
 	if name=="Brothena":
 		return Monster(6, "Brothena",lvl,[getMove("Double Edge"),getMove("Bitch Slap"),getMove("Trifecta"),getMove("Splash")],"normal", hp, exp)
 	if name=="Broses":
-		return Monster(99, "Broses",lvl,[getMove("Part the Red Sea"),getMove("Trolololol"),getMove("Tackle"),getMove("Splash")],"water", hp, exp)
+		return Monster(98, "Broses",lvl,[getMove("Part the Red Sea"),getMove("Trolololol"),getMove("Tackle"),getMove("Splash")],"water", hp, exp)
 	if name=="Broku":
-		return Monster(99, "Broku",lvl,[getMove("Go Super Saiyan"),getMove("Trolololol"),getMove("Tackle"),getMove("Splash")],"electric", hp, exp=0)
+		return Monster(99, "Broku",lvl,[getMove("Super Saiyan 1"),getMove("Trolololol"),getMove("Tackle"),getMove("Splash")],"electric", hp, exp=0)
 	
