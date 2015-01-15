@@ -1,6 +1,5 @@
 import pygame
-import random
-
+from random import *
 HalfEffect = ["electricgrass", "firewater", "watergrass", "groundgrass", "grassgrass", "waterwater", "firefire", "electricelectric"]
 DoubleEffect = ["electricwater", "waterfire", "waterground", "grasswater", "grassground", "groundfire", "groundelectric"]
 NoEffect = ["electricground"]
@@ -58,7 +57,7 @@ class Monster():
 			self.hp += 3
 
 def getWildMonster():
-    return random.choice(["Broseidon","Brometer","Brollo","Brophaestus","Brous","Brothena"])
+    return random.choice(["Broseidon","Brometer","Brollo","Brophaestus","Broos","Brothena"])
     
 def getMove(name):
 	if name=="Tackle":
@@ -93,10 +92,10 @@ def getMove(name):
 		return Move("Aftershocks", 20*randint(2,6), "ground")
 	elif name=="Part the Red Sea":
 		return Move("Part the Red Sea", 2000, "water")
-	elif name=="Super Saiyan 1":
-		return Monve("Go Super Saiyan", 1, "electric")
+	elif name=="Go Super Saiyan":
+		return Move("Go Super Saiyan", 1, "electric")
 	elif name=="Trolololol":
-		return Monve("Trolololol", 0, "normal")
+		return Move("Trolololol", 0, "normal")
 	
 		
 def getMonster(name, lvl = 1, hp = "", exp = 0):
@@ -109,7 +108,7 @@ def getMonster(name, lvl = 1, hp = "", exp = 0):
 	if name=="Brophaestus":
 		return Monster(4, "Brophaestus",lvl,[getMove("Earthquake"),getMove("Aftershocks"),getMove("Tackle"),getMove("Splash")],"ground", hp, exp)
 	if name=="Broos":
-		return Monster(5, "Brous",lvl,[getMove("Thunderbolt"),getMove("Multispark"),getMove("Tackle"),getMove("Splash")],"electric", hp, exp)
+		return Monster(5, "Broos",lvl,[getMove("Thunderbolt"),getMove("Multispark"),getMove("Tackle"),getMove("Splash")],"electric", hp, exp)
 	if name=="Brothena":
 		return Monster(6, "Brothena",lvl,[getMove("Double Edge"),getMove("Bitch Slap"),getMove("Trifecta"),getMove("Splash")],"normal", hp, exp)
 	if name=="Broses":
