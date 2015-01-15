@@ -1,5 +1,6 @@
 from Monster import *
 from Button import *
+from Player import *
 import pygame, sys, random
 pygame.init()
 width = 800
@@ -13,11 +14,11 @@ bgImage = pygame.image.load("RSC/Screens/Start Screen.png").convert()
 bgRect = bgImage.get_rect()
 
 startButton = Button([width/2, height-300], 
-				     "RSC/Buttons/Start Base.png", 
-				     "RSC/Buttons/Start Clicked.png")
+				     "Rsc/Buttons/Start Base.png", 
+				     "Rsc/Buttons/Start Clicked.png")
 
 clock = pygame.time.Clock()
-bgColor = r,g,b = 255, 165, 0
+bgColor = r,g,b = 100, 255, 80
 running = False
 
 while True:
