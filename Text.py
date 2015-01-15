@@ -1,28 +1,45 @@
 import pygame
-
+ 
+class Option:
+ 
+    hovered = False
+    
+    def __init__(self, text, pos):
+        self.text = text
+        self.pos = pos
+        self.set_rect()
+        self.draw()
+            
+    def draw(self):
+        self.set_rend()
+        screen.blit(self.rend, self.rect)
+        
+    def set_rend(self):
+        self.rend = menu_font.render(self.text, True, self.get_color())
+        
+    def get_color(self):
+        if self.hovered:
+            return (255, 255, 255)
+        else:
+            return (100, 100, 100)
+        
+    def set_rect(self):
+        self.set_rend()
+        self.rect = self.rend.get_rect()
+        self.rect.topleft = self.pos
+ 
 pygame.init()
-
-red   = 255,  0,  0
-green =   0,255,  0
-blue  =   0,  0,255
-
-size = width, height = 340,240	
-screen = pygame.display.set_mode(size)
-screen.fill(blue)
-pygame.display.update()
-pygame.key.set_repeat(500,30)
-
-choose = menu(screen, [
-						'Marsupia Monstra'
-                        'Start Game',
-                        'Options',
-                        'Quit Game'], 64,64,None,32,1.4,green,red)
-
-if choose == 0:
-    print "You choose 'Start Game'."
-elif choose == 1:
-    print "You choose 'Options'."
-elif choose == 2:
-    print "You choose 'Quit Game'."
-pygame.quit()
-exit()
+screen = pygame.display.set_mode((480, 320))
+menu_font = pygame.font.Font(None, 40)
+options = [Option("Marsupia Monstra", (120, 55)), Option("Play", (210, 105)), Option("Options", (185, 155)),
+           Option("Exit", (210, 205))]
+while True:
+    pygame.event.pump()
+    screen.fill((0, 0, 0))
+    for option in options:
+        if option.rect.collidepoint(pygame.mouse.get_pos()):
+            option.hovered = True
+        else:
+            option.hovered = False
+        option.draw()
+    pygame.display.update()
