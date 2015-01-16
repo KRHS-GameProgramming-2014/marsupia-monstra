@@ -16,6 +16,10 @@ bgRect = bgImage.get_rect()
 startButton = Button([width/2, height-300], 
 				     "Rsc/Buttons/Start Base.png", 
 				     "Rsc/Buttons/Start Clicked.png")
+				     
+startCharacter = pygame.image.load("RSC/Screens/Start Screen.png",
+									"RSC/Screens/Start Screen.png")
+
 
 clock = pygame.time.Clock()
 bgColor = r,g,b = 100, 255, 80
