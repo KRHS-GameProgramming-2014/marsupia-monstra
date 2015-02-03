@@ -25,6 +25,8 @@ startCharacter = pygame.image.load("RSC/Screens/Start Screen.png",
 
 clock = pygame.time.Clock()
 bgColor = r,g,b = 100, 255, 80
+background = pygame.image.load("Rsc/Background.png")
+backgroundRect = background.get_rect()
 running = False
 
 while True:
@@ -72,7 +74,7 @@ while True:
 
 	
 		bgColor = r,g,b
-		screen.fill(bgColor)
+		screen.blit(background, backgroundRect)
 		screen.blit(character.image, character.rect)
 		character.update(width, height)
 		pygame.display.flip()
