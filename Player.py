@@ -94,5 +94,3 @@ class Player(Base):
 			self.speedx = -self.maxSpeed
 		elif direction == "stop left":
 			self.speedx = 0
-			
-	def throw(delf, direction):
