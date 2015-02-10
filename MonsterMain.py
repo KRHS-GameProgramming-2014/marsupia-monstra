@@ -70,34 +70,7 @@ while True:
 				if event.key == pygame.K_a or event.key == pygame.K_LEFT:
 					character.go("stop left")
 		
-		monsters = []
-		monsters += [Base("Rsc/Broseidon.png", [4,5], [100, 125])]
-		if len(monsters) < 10:
-			if random.randint(0, 1*60) == 0:
-				monsters += [Base("Rsc/Broseidon.png",
-						  [random.randint(0,10), random.randint(0,10)],
-						  [random.randint(100, width-100), random.randint(100, height-100)])
-						  ]
-						  
-		#if timerWait < timerWaitMax:
-			#timerWait += 1
-		#else:
-			#timerWait = 0
-			#timer.increaseScore(.1)
-		#timer.update()
-		#score.update()
-		for monster in monsters:
-			monster.update(width, height)
-		for bully in monsters:
-			for victem in monsters:
-				bully.collideBall(victem)
-			if bully.collidePlayer(character):
-				#score.increaseScore(1)
-				pass
-		for monster in monsters:
-			if not monster.living:
-				monsters.remove(monster)
-		
+
 		
 	
 		bgColor = r,g,b
