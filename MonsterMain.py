@@ -1,11 +1,13 @@
 from Monster import *
 from Button import *
 from Player import *
+from Ball import *
 import pygame, sys, random
 pygame.init()
 width = 800
 height = 600
 
+balls = []
 
 size = width, height
 clock = pygame.time.Clock()
@@ -13,12 +15,14 @@ screen = pygame.display.set_mode(size)
 bgImage = pygame.image.load("RSC/Screens/Start Screen.png").convert()
 bgRect = bgImage.get_rect()
 
+
+
 startButton = Button([width/2, height-300], 
-				     "Rsc/Buttons/Start Base.png", 
-				     "Rsc/Buttons/Start Clicked.png")
+					 "Rsc/Buttons/Start Base.png", 
+					 "Rsc/Buttons/Start Clicked.png")
 		
 character = Player([100,100])
-				     
+					 
 startCharacter = pygame.image.load("RSC/Screens/Start Screen.png",
 									"RSC/Screens/Start Screen.png")
 
@@ -60,6 +64,8 @@ while True:
 					character.go("down")
 				if event.key == pygame.K_a or event.key == pygame.K_LEFT:
 					character.go("left")
+				if event.key == pygame.K_SPACE:
+					balls += character.shoot()
 			if event.type == pygame.KEYUP:
 				if event.key == pygame.K_w or event.key == pygame.K_UP:
 					character.go("stop up")
@@ -69,8 +75,16 @@ while True:
 					character.go("stop down")
 				if event.key == pygame.K_a or event.key == pygame.K_LEFT:
 					character.go("stop left")
+				if event.key == pygame.K_SPACE:
+					character.shoot("stop")
 		
-
+		for ball in balls:
+			ball.update(width, height)
+		for ball in balls:
+			if not ball.living:
+				balls.remove(ball)
+		for ball in balls:
+			screen.blit(ball.image, ball.rect)
 		
 	
 		bgColor = r,g,b
