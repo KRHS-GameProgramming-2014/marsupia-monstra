@@ -16,7 +16,7 @@ class Player(Base):
 		self.rightImages = [pygame.image.load("Rsc/Player/StationaryRight.png"),
 						    pygame.image.load("Rsc/Player/WalkRight1.png"),
 						    pygame.image.load("Rsc/Player/WalkRight2.png")]
-		self.facing = "down"
+		self.facing = "up"
 		self.changed = False
 		self.images = self.upImages
 		self.frame = 0

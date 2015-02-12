@@ -71,7 +71,9 @@ while True:
 					character.go("stop down")
 				if event.key == pygame.K_a or event.key == pygame.K_LEFT:
 					character.go("stop left")
+		
 
+		
 	
 		bgColor = r,g,b
 		screen.blit(background, backgroundRect)
