@@ -1,21 +1,26 @@
 import math,pygame
 from Base import *
+from Ball import *
 
 class Player(Base):
 	def __init__(self, pos):
 		Base.__init__(self, "Rsc/Player/StationaryDown.png", [0,0], pos)
 		self.upImages = [pygame.image.load("Rsc/Player/StationaryUp.png"),
 						 pygame.image.load("Rsc/Player/WalkUp1.png"),
+						 pygame.image.load("Rsc/Player/StationaryUp.png"),
 						 pygame.image.load("Rsc/Player/WalkUp2.png")]
 		self.downImages = [pygame.image.load("Rsc/Player/StationaryDown.png"),
 						   pygame.image.load("Rsc/Player/WalkDown1.png"),
+						   pygame.image.load("Rsc/Player/StationaryDown.png"),
 						   pygame.image.load("Rsc/Player/WalkDown2.png")]
 		self.leftImages = [pygame.image.load("Rsc/Player/StationaryLeft.png"),
 						   pygame.image.load("Rsc/Player/WalkLeft1.png"),
+						   pygame.image.load("Rsc/Player/StationaryLeft.png"),
 						   pygame.image.load("Rsc/Player/WalkLeft2.png")]
 		self.rightImages = [pygame.image.load("Rsc/Player/StationaryRight.png"),
-						    pygame.image.load("Rsc/Player/WalkRight1.png"),
-						    pygame.image.load("Rsc/Player/WalkRight2.png")]
+							pygame.image.load("Rsc/Player/WalkRight1.png"),
+							pygame.image.load("Rsc/Player/StationaryRight.png"),
+							pygame.image.load("Rsc/Player/WalkRight2.png")]
 		self.facing = "up"
 		self.changed = False
 		self.images = self.upImages
@@ -26,6 +31,7 @@ class Player(Base):
 		self.image = self.images[self.frame]
 		self.rect = self.image.get_rect(center = self.rect.center)
 		self.maxSpeed = 4
+		self.shooting = False
 			
 	def update(self, width, height):
 		Base.update(self, width, height)
@@ -67,6 +73,11 @@ class Player(Base):
 				self.images = self.leftImages
 			
 			self.image = self.images[self.frame]
+	
+	def shoot(self, command = ""):
+		if command == "stop":
+			self.shooting = False
+		return [Ball(self.rect.center, self.facing, 10)]
 	
 	def go(self, direction):
 		if direction == "up":
