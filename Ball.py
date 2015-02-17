@@ -1,63 +1,80 @@
 import pygame, math
 
-class Ball():
-	def __init__(self, pos, facing, damage=1):
-		self.image = pygame.image.load("Rsc/Balls/Pokeball.png")
-		self.rect = self.image.get_rect()
-		speed = 10
-		self.speedx = 0
-		self.speedy = 0
-		#print facing
-		if facing == "up":
-			self.speedx = 0
-			self.speedy = -speed
-		elif facing == "down":
-			self.speedx = 0
-			self.speedy = speed
-		elif facing == "right":
-			self.speedx = speed
-			self.speedy = 0
-		elif facing == "left":
-			self.speedx = -speed
-			self.speedy = 0
-		self.speed = [self.speedx, self.speedy]
-		self.place(pos)
-		self.radius = (int(self.rect.height/2.0 + self.rect.width/2.0)/2) - 1
-		self.damage = 1
-		self.living = True
+import math,sys,pygame
 
-	def place(self, pos):
-		self.rect.center = pos
-		
-	def update(self, width, height):
-		self.speed = [self.speedx, self.speedy]
+class Ball():
+	def __init__(self,player):
+		self.facing = player.facing
+		if self.facing == "up":
+			self.image = pygame.image.load("Rsc/Balls/Pokeball.png")
+			self.speed = [0, -5]
+		elif self.facing == "down":
+			self.image = pygame.image.load("Rsc/Balls/Pokeball.png")
+			self.speed = [0, 5]
+		elif self.facing == "right":
+			self.image = pygame.image.load("Rsc/Balls/Pokeball.png")
+			self.speed = [5, 0]
+		elif self.facing == "left":
+			self.image = pygame.image.load("Rsc/Balls/Pokeball.png")
+			self.speed = [-5, 0]
+		self.rect = self.image.get_rect()
+		self.damage = 10
+		self.place(player.rect.center)
+		self.radius = (int(self.rect.height/2.0 + self.rect.width/2.0)/2) - 1
 		self.move()
-		self.collideEdge(width, height)
-		
+		self.living = True
+	  
 	def move(self):
 		self.rect = self.rect.move(self.speed)
-		
-	def collideEdge(self, width, height):
+	
+	def collideWall(self, width, height):
 		if self.rect.left < 0 or self.rect.right > width:
-			self.living = False
+			self.speedx = 0
+			#print "hit xWall"
 		if self.rect.top < 0 or self.rect.bottom > height:
-			self.living = False
-			
-	def collideCreature(self, other):
-		if self != other:
-			if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
-				if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
-					if (self.radius + other.radius) > self.distance(other.rect.center):
-						self.living = False
+			self.speedy = 0
 	
-	def collideBlock(self, other):
-		if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
-			if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
-				self.living = False
-	
+	def collideBall(self, other):
+				if self != other:
+						if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
+								if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
+										if (self.radius + other.radius) > self.distance(other.rect.center):
+												self.living = False
+						
+	def place(self, pt):
+		self.rect.center = pt
+		
+	def update(self, width, height):
+		self.move()
+		self.collideWall(width, height)
+		
 	def distance(self, pt):
 		x1 = self.rect.center[0]
 		y1 = self.rect.center[1]
 		x2 = pt[0]
 		y2 = pt[1]
 		return math.sqrt(((x2-x1)**2) + ((y2-y1)**2))
+		
+	def animate(self):
+		if self.waitCount < self.maxWait:
+			self.waitCount += 1
+		else:
+			self.waitCount = 0
+			self.facingChanged = True
+			if self.frame < self.maxFrame:
+				self.frame += 1
+			else:
+				self.frame = 0
+		
+		if self.changed:    
+			if self.facing == "up":
+				self.images = self.upImages
+			elif self.facing == "down":
+				self.images = self.downImages
+			elif self.facing == "right":
+				self.images = self.rightImages
+			elif self.facing == "left":
+				self.images = self.leftImages
+			
+			self.image = self.images[self.frame]
+		

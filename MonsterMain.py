@@ -7,7 +7,6 @@ pygame.init()
 width = 800
 height = 600
 
-balls = []
 
 size = width, height
 clock = pygame.time.Clock()
@@ -59,15 +58,27 @@ while True:
 			if event.type == pygame.QUIT: sys.exit()
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_w or event.key == pygame.K_UP:
+					character.go("stop left")
+					character.go("stop right")
+					character.go("stop down")
 					character.go("up")
 				if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
+					character.go("stop left")
+					character.go("stop down")
+					character.go("stop up")
 					character.go("right")
 				if event.key == pygame.K_s or event.key == pygame.K_DOWN:
+					character.go("stop right")
+					character.go("stop up")
+					character.go("stop left")
 					character.go("down")
 				if event.key == pygame.K_a or event.key == pygame.K_LEFT:
+					character.go("stop right")
+					character.go("stop up")
+					character.go("stop down")
 					character.go("left")
-				if event.key == pygame.K_SPACE:
-					balls += character.shoot()
+				elif (event.key == pygame.K_e or event.key == pygame.K_j):
+					balls += player.attack("gust")
 			if event.type == pygame.KEYUP:
 				if event.key == pygame.K_w or event.key == pygame.K_UP:
 					character.go("stop up")
@@ -77,16 +88,11 @@ while True:
 					character.go("stop down")
 				if event.key == pygame.K_a or event.key == pygame.K_LEFT:
 					character.go("stop left")
-				if event.key == pygame.K_SPACE:
-					character.shoot("stop")
+				elif (event.key == pygame.K_j ):
+					player.attack("stop gust")
+
 		
-		for ball in balls:
-			ball.update(width, height)
-		for ball in balls:
-			if not ball.living:
-				balls.remove(ball)
-		for ball in balls:
-			screen.blit(ball.image, ball.rect)
+
 		
 	
 		bgColor = r,g,b

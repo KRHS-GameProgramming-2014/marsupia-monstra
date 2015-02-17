@@ -2,6 +2,7 @@ import math,pygame
 from Base import *
 from Ball import *
 
+
 class Player(Base):
 	def __init__(self, pos):
 		Base.__init__(self, "Rsc/Player/StationaryDown.png", [0,0], pos)
@@ -27,11 +28,11 @@ class Player(Base):
 		self.frame = 0
 		self.maxFrame = len(self.images) - 1
 		self.waitCount = 0
-		self.maxWait = 60*.25
+		self.maxWait = 60*.15
 		self.image = self.images[self.frame]
 		self.rect = self.image.get_rect(center = self.rect.center)
-		self.maxSpeed = 4
-		self.shooting = False
+		self.maxSpeed = 3
+
 			
 	def update(self, width, height):
 		Base.update(self, width, height)
@@ -73,11 +74,7 @@ class Player(Base):
 				self.images = self.leftImages
 			
 			self.image = self.images[self.frame]
-	
-	def shoot(self, command = ""):
-		if command == "stop":
-			self.shooting = False
-		return [Ball(self.rect.center, self.facing, 10)]
+			
 	
 	def go(self, direction):
 		if direction == "up":
