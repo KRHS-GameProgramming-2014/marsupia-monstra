@@ -3,19 +3,19 @@ import pygame, math
 import math,sys,pygame
 
 class Ball():
-	def __init__(self,player):
+	def __init__(self,player,image):
 		self.facing = player.facing
 		if self.facing == "up":
-			self.image = pygame.image.load("Rsc/Balls/Pokeball.png")
+			self.image = pygame.image.load(image)
 			self.speed = [0, -5]
 		elif self.facing == "down":
-			self.image = pygame.image.load("Rsc/Balls/Pokeball.png")
+			self.image = pygame.image.load(image)
 			self.speed = [0, 5]
 		elif self.facing == "right":
-			self.image = pygame.image.load("Rsc/Balls/Pokeball.png")
+			self.image = pygame.image.load(image)
 			self.speed = [5, 0]
 		elif self.facing == "left":
-			self.image = pygame.image.load("Rsc/Balls/Pokeball.png")
+			self.image = pygame.image.load(image)
 			self.speed = [-5, 0]
 		self.rect = self.image.get_rect()
 		self.damage = 10
