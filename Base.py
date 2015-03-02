@@ -45,11 +45,9 @@ class Base():
 				if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
 					if (self.radius + other.radius) > self.distance(other.rect.center):
 						if not self.didBounceX:
-							self.speedx = -self.speedx
-							self.didBouncex = True
+							self.living = False
 						if not self.didBounceY:
-							self.speedy = -self.speedy
-							self.didBounceY = True
+							self.living = False
 							
 							
 	def collidePlayer(self, other):
