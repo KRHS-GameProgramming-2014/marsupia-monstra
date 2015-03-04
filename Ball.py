@@ -33,7 +33,7 @@ class Ball():
 		if self.rect.top < 0 or self.rect.bottom > height:
 			self.living = False
 	
-	def collideBall(self, other):
+	def collideEnemy(self, other):
 		if self != other:
 			if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
 				if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:

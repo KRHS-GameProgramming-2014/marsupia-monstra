@@ -39,6 +39,7 @@ class Player(Base):
 		self.ballCoolDown = 0
 		self.ballCoolDownMax = 30
 		self.balldelay = 5
+		self.health = 10
 		
 
 			
@@ -64,6 +65,16 @@ class Player(Base):
 				self.update(width, height)
 				self.speedy = 0
 				#print "hit xWall"
+	
+	def collideEnemy(self, other):
+		if self != other:
+			if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
+				if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
+					if (self.radius + other.radius) > self.distance(other.rect.center):
+						self.health -= 1
+						if self.health < 0:
+							print "dead"
+							self.living = False
 	
 	def animate(self):
 		if self.waitCount < self.maxWait:
