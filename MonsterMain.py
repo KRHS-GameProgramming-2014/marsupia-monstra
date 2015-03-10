@@ -96,9 +96,13 @@ while True:
 		
 		
 		enemyCounter += 1
-		if enemyCounter == 60:
-			enemies += [Base("Rsc/Player/StationaryDown.png", [randint(0,3),0], [200,300])]
-			enemyCounter = 0
+		if enemyCounter >= 60 and len(enemies) < 10:
+			if randint(0,1) == 1:
+				enemies += [Base("Rsc/Player/StationaryDown.png", [randint(1,2),randint(1,2)], [randint(30,270),randint(100,500)])]
+				enemyCounter = 0
+			else:
+				enemies += [Base("Rsc/Player/StationaryDown.png", [randint(1,2),randint(1,2)], [randint(530,770),randint(100,500)])]
+				enemyCounter = 0
 		
 		
 		
@@ -109,13 +113,12 @@ while True:
 			enemy.update(width, height)
 		
 		
-		for bully in enemies:
-			for victim in enemies:
-				character.collideEnemy(enemy)
-			bully.collidePlayer(character)
+		for enemy in enemies:
+			character.collideEnemy(enemy)
+			enemy.collidePlayer(character)
 			for ball in balls:
-				bully.collideBall(ball)
-				if ball.collideEnemy(bully):
+				enemy.collideBall(ball)
+				if ball.collideEnemy(enemy):
 					balls.remove(ball)
 
 		
