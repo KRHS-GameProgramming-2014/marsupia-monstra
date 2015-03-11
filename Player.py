@@ -29,17 +29,21 @@ class Player(Base):
 		self.frame = 0
 		self.maxFrame = len(self.images) - 1
 		self.waitCount = 0
-		self.maxWait = 60*.15
+		self.maxWait = 60*.125
 		self.image = self.images[self.frame]
 		self.rect = self.image.get_rect(center = self.rect.center)
-		self.maxSpeed = 3
+		self.maxSpeed = 2
 		self.throwing = False
 		self.ballCount = 0
 		self.maxBallCount = 10
 		self.ballCoolDown = 0
-		self.ballCoolDownMax = 50
+		self.ballCoolDownMax = 15
 		self.balldelay = 5
-		
+		self.health = 12 
+		self.maxHurtDelay = 30 * 2
+		self.hurtDelay = 0
+		self.invincible = False
+		self.living = True
 
 			
 	def update(self, width, height):
@@ -48,20 +52,44 @@ class Player(Base):
 		self.changed = False
 		if self.ballCoolDown > 0:
 			self.ballCoolDown -=1
-
+		if self.hurtDelay > 0:
+			self.hurtDelay -= 1
+		else:
+			self.invincible = False
 		
 	def collideWall(self, width, height):
 		if not self.didBounceX:
 			#print "trying to hit Wall"
 			if self.rect.left < 0 or self.rect.right > width:
+				self.speedx = -self.speedx
+				self.update(width, height)
 				self.speedx = 0
-				self.didBounceX = True
 				#print "hit xWall"
 		if not self.didBounceY:
 			if self.rect.top < 0 or self.rect.bottom > height:
+				self.speedy = -self.speedy
+				self.update(width, height)
 				self.speedy = 0
-				self.didBounceY = True
 				#print "hit xWall"
+	
+	def collideEnemy(self, other):
+		if self != other:
+			if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
+				if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
+					if self.invincible == False:
+						self.hurt()
+	
+	def hurt(self, amount=1):
+		self.changed = True
+		self.hurting = True
+		if not self.invincible:
+			self.health -= amount
+			print self.health
+			self.invincible = True
+			self.hurtDelay = self.maxHurtDelay
+			
+		if self.health <= 0:
+			self.living = False
 	
 	def animate(self):
 		if self.waitCount < self.maxWait:

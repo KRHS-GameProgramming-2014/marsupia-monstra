@@ -1,12 +1,14 @@
 from Monster import *
 from Button import *
 from Player import *
-from Ball import *
+from Ball import Ball
+from Base import Base
 import pygame, sys, random
 pygame.init()
 width = 800
 height = 600
 
+enemyCounter = 0
 
 size = width, height
 clock = pygame.time.Clock()
@@ -15,6 +17,7 @@ bgImage = pygame.image.load("RSC/Screens/Start Screen.png").convert()
 bgRect = bgImage.get_rect()
 
 balls = []
+enemies = []
 
 startButton = Button([width/2, height-300], 
 					 "Rsc/Buttons/Start Base.png", 
@@ -90,15 +93,52 @@ while True:
 					character.go("stop left")
 				if event.key == pygame.K_SPACE:
 					character.attack("stop throwing")
+		
+		
+		enemyCounter += 1
+		if enemyCounter >= 60 and len(enemies) < 10:
+			if randint(0,1) == 1:
+				enemies += [Base("Rsc/Player/StationaryDown.png", [randint(1,2),randint(1,2)], [randint(30,270),randint(100,500)])]
+				enemyCounter = 0
+			else:
+				enemies += [Base("Rsc/Player/StationaryDown.png", [randint(1,2),randint(1,2)], [randint(530,770),randint(100,500)])]
+				enemyCounter = 0
+		
+		
+		
+		character.update(width, height)
+		for ball in balls:
+			ball.update(width, height)
+		for enemy in enemies:
+			enemy.update(width, height)
+		
+		
+		for enemy in enemies:
+			character.collideEnemy(enemy)
+			enemy.collidePlayer(character)
+			for ball in balls:
+				enemy.collideBall(ball)
+				if ball.collideEnemy(enemy):
+					balls.remove(ball)
 
 		
-
+		
+		
 		for ball in balls:
-			screen.blit(ball.image, ball.rect)
+			if not ball.living:
+				balls.remove(ball)
+		for enemy in enemies:
+			if not enemy.living:
+				enemies.remove(enemy)		
 	
 		bgColor = r,g,b
 		screen.blit(background, backgroundRect)
 		screen.blit(character.image, character.rect)
-		character.update(width, height)
+		for ball in balls:
+			screen.blit(ball.image, ball.rect)
+			
+		for enemy in enemies:
+			screen.blit(enemy.image, enemy.rect)	
+		
 		pygame.display.flip()
 		clock.tick(60)
