@@ -46,7 +46,7 @@ while True:
 				startButton.click(event.pos)
 			if event.type == pygame.MOUSEBUTTONUP:
 				if startButton.release(event.pos):
-					running = True
+					characterLiving = True
 					
 		bgColor = r,g,b
 		screen.fill(bgColor)
@@ -93,15 +93,15 @@ while True:
 					character.go("stop left")
 				if event.key == pygame.K_SPACE:
 					character.attack("stop throwing")
-		
+
 		
 		enemyCounter += 1
-		if enemyCounter >= 60 and len(enemies) < 10:
+		if enemyCounter >= 30 and len(enemies) < 20:
 			if randint(0,1) == 1:
-				enemies += [Base("Rsc/Player/StationaryDown.png", [randint(1,2),randint(1,2)], [randint(30,270),randint(100,500)])]
+				enemies += [Base("Rsc/Monsters/Broku.png", [0,0], [randint(50,250),randint(100,500)])]
 				enemyCounter = 0
 			else:
-				enemies += [Base("Rsc/Player/StationaryDown.png", [randint(1,2),randint(1,2)], [randint(530,770),randint(100,500)])]
+				enemies += [Base("Rsc/Monsters/Broku.png", [0,0], [randint(550,750),randint(100,500)])]
 				enemyCounter = 0
 		
 		
@@ -110,8 +110,7 @@ while True:
 		for ball in balls:
 			ball.update(width, height)
 		for enemy in enemies:
-			enemy.update(width, height)
-		
+			enemy.update(width, height, character)
 		
 		for enemy in enemies:
 			character.collideEnemy(enemy)

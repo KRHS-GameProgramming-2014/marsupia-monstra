@@ -12,20 +12,23 @@ class Base():
 		self.didBounceY = False
 		self.radius = (int(self.rect.height/2.0 + self.rect.width/2.0)/2) - 1
 		self.living = True
-		self.detectionRadius = 120
+		self.detectionRadius = 1200
+		self.maxSpeed = 1
 		
 		
 	def place(self, pos):
 		self.rect.center = pos
 		
-	def update(self, width, height):
+	def update(self, width, height, other):
 		self.didBounceX = False
 		self.didBounceY = False
 		self.speed = [self.speedx, self.speedy]
-		self.move()
+		self.move(other)
 		self.collideWall(width, height)
 		
-	def move(self):
+	def move(self, other):
+		if other != None:
+			self.detect(other)
 		self.rect = self.rect.move(self.speed)
 		
 	def collideWall(self, width, height):
@@ -40,6 +43,31 @@ class Base():
 				self.speedy = -self.speedy
 				self.didBounceY = True
 				#print "hit xWall"
+		
+		
+	def detect(self, other):
+		if self.distance(other.rect.center) < self.detectionRadius:
+			pX = other.rect.center[0]
+			pY = other.rect.center[1]
+			zX = self.rect.center[0]
+			zY = self.rect.center[1]
+		   
+			if pX > zX:
+				self.speed[0] = self.maxSpeed
+			elif pX < zX:
+				self.speed[0] = -self.maxSpeed
+			else:
+				self.speed[0] = 0
+	   
+			if pY > zY:
+				self.speed[1] = self.maxSpeed
+			elif pY < zY:
+				self.speed[1] = -self.maxSpeed
+			else:
+				self.speed[1] = 0	
+		
+		
+		
 		
 	def collideBall(self, other):
 		if self != other:
