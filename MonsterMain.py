@@ -31,7 +31,7 @@ startCharacter = pygame.image.load("RSC/Screens/Start Screen.png",
 
 clock = pygame.time.Clock()
 bgColor = r,g,b = 100, 255, 80
-background = pygame.image.load("Rsc/Final Background.png")
+background = pygame.image.load("Rsc/Poke Mart and Center Background.png")
 backgroundRect = background.get_rect()
 running = False
 
