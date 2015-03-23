@@ -8,6 +8,8 @@ pygame.init()
 width = 800
 height = 600
 
+#tedst
+
 enemyCounter = 0
 
 size = width, height
