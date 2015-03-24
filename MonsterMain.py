@@ -112,10 +112,10 @@ while True:
 				enemyCounter = 0
 		
 		if abcd == 1:
-			blocks += [Block("Rsc/marsupiamonstra.png", [150,40], [300,80])]
-			blocks += [Block("Rsc/marsupiamonstra.png", [650,40], [300,80])]
-			blocks += [Block("Rsc/marsupiamonstra.png", [150,560], [300,80])]
-			blocks += [Block("Rsc/marsupiamonstra.png", [650,560], [300,80])]
+			blocks += [Block("Rsc/Invisible Barrier.png", [150,40], [300,80])]
+			blocks += [Block("Rsc/Invisible Barrier.png", [650,40], [300,80])]
+			blocks += [Block("Rsc/Invisible Barrier.png", [150,560], [300,80])]
+			blocks += [Block("Rsc/Invisible Barrier.png", [650,560], [300,80])]
 			abcd = 0
 			
 		character.update(width, height)
@@ -160,19 +160,16 @@ while True:
 		
 		
 	endButton = Button([width/4, height/2], 
-					"Rsc/deathscreen/tryagain.png",
-					"Rsc/deathscreen/tryagainhighlighted.png")
+					"Rsc/Death screen.png",
+					"Rsc/Death screen.png")
+
 									 
-	endButton2 = Button([width/1.5, height/2],
-					"Rsc/deathscreen/quit.png",
-					"Rsc/deathscreen/quithighlighted.png")
-									 
-	endCharacter = pygame.image.load("rsc/deathscreen/deathscreen.png",
-								"Rsc/deathscreen/deathscreen.png")
+	endCharacter = pygame.image.load("Rsc/Death screen.png",
+								"Rsc/Death screen.png")
 			
-	bgImage = pygame.image.load("Rsc/deathscreen/deathscreen.png")
+	bgImage = pygame.image.load("Rsc/Death screen.png")
 	
-	while running and not player.living:
+	while running and not character.living:
 		for event in pygame.event.get():
 			if event.type == pygame.quit: sys.exit()
 			if event.type == pygame.KEYDOWN:
@@ -185,17 +182,10 @@ while True:
 				if endButton.release(event.pos):
 					running = True
 					character = Player([400,100])
-			if event.type == pygame.MOUSEBUTTONDOWN:
-				endButton2.click(event.pos)
-			if event.type == pygame.MOUSEBUTTONUP:
-				if endButton2.release(event.pos):
-					running = False
-					sys.exit()
 		
 		screen.fill(bgColor)
 		screen.blit(bgImage, bgRect)
 		screen.blit(endButton.image, endButton.rect)
-		screen.blit(endButton2.image, endButton2.rect)
 		pygame.display.flip()
 		#print "draw:", time.time() - st
 		clock.tick(1)
