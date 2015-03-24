@@ -86,8 +86,7 @@ class Player(Base):
 			self.invincible = True
 			self.hurtDelay = self.maxHurtDelay
 			
-		if self.health <= 0:
-			self.living = False
+
 	
 	def animate(self):
 		if self.moving:
