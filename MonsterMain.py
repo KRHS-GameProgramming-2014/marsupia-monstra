@@ -3,12 +3,16 @@ from Button import *
 from Player import *
 from Ball import Ball
 from Base import Base
+from Block import Block
 import pygame, sys, random
 pygame.init()
 width = 800
 height = 600
 
 enemyCounter = 0
+abcd = 1
+
+deathScreen = False
 
 size = width, height
 clock = pygame.time.Clock()
@@ -16,6 +20,7 @@ screen = pygame.display.set_mode(size)
 bgImage = pygame.image.load("RSC/Screens/Start Screen.png").convert()
 bgRect = bgImage.get_rect()
 
+blocks = []
 balls = []
 enemies = []
 
@@ -23,7 +28,7 @@ startButton = Button([width/2, height-300],
 					 "Rsc/Buttons/Start Base.png", 
 					 "Rsc/Buttons/Start Clicked.png")
 		
-character = Player([100,100])
+character = Player([400,100])
 					 
 startCharacter = pygame.image.load("RSC/Screens/Start Screen.png",
 									"RSC/Screens/Start Screen.png")
@@ -46,7 +51,7 @@ while True:
 				startButton.click(event.pos)
 			if event.type == pygame.MOUSEBUTTONUP:
 				if startButton.release(event.pos):
-					characterLiving = True
+					running = True
 					
 		bgColor = r,g,b
 		screen.fill(bgColor)
@@ -56,7 +61,7 @@ while True:
 		clock.tick(60)
 		
 		
-	while running:
+	while running and character.living:
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT: sys.exit()
 			if event.type == pygame.KEYDOWN:
@@ -96,16 +101,21 @@ while True:
 
 		
 		enemyCounter += 1
-		if enemyCounter >= 30 and len(enemies) < 20:
+		if enemyCounter >= 30 and len(enemies) < 6:
 			if randint(0,1) == 1:
 				enemies += [Base("Rsc/Monsters/Broku.png", [0,0], [randint(50,250),randint(100,500)])]
 				enemyCounter = 0
 			else:
-				enemies += [Base("Rsc/Monsters/Broku.png", [0,0], [randint(550,750),randint(100,500)])]
+				enemies += [Base("Rsc/Monsters/Broseidon.png", [0,0], [randint(550,750),randint(100,500)])]
 				enemyCounter = 0
 		
-		
-		
+		if abcd == 1:
+			blocks += [Block("Rsc/marsupiamonstra.png", [150,40], [300,80])]
+			blocks += [Block("Rsc/marsupiamonstra.png", [650,40], [300,80])]
+			blocks += [Block("Rsc/marsupiamonstra.png", [150,560], [300,80])]
+			blocks += [Block("Rsc/marsupiamonstra.png", [650,560], [300,80])]
+			abcd = 0
+			
 		character.update(width, height)
 		for ball in balls:
 			ball.update(width, height)
@@ -119,8 +129,11 @@ while True:
 				enemy.collideBall(ball)
 				if ball.collideEnemy(enemy):
 					balls.remove(ball)
-
+		for block in blocks:
+			block.playerCollide(character, width, height)
 		
+		if character.health <= 0:
+			character.living = False
 		
 		
 		for ball in balls:
@@ -135,9 +148,53 @@ while True:
 		screen.blit(character.image, character.rect)
 		for ball in balls:
 			screen.blit(ball.image, ball.rect)
-			
+		for block in blocks:
+			screen.blit(block.image, block.rect)
 		for enemy in enemies:
 			screen.blit(enemy.image, enemy.rect)	
 		
 		pygame.display.flip()
 		clock.tick(60)
+		
+		
+	endButton = Button([width/4, height/2], 
+					"Rsc/deathscreen/tryagain.png",
+					"Rsc/deathscreen/tryagainhighlighted.png")
+									 
+	endButton2 = Button([width/1.5, height/2],
+					"Rsc/deathscreen/quit.png",
+					"Rsc/deathscreen/quithighlighted.png")
+									 
+	endCharacter = pygame.image.load("rsc/deathscreen/deathscreen.png",
+								"Rsc/deathscreen/deathscreen.png")
+			
+	bgImage = pygame.image.load("Rsc/deathscreen/deathscreen.png")
+	
+	while running and not player.living:
+		for event in pygame.event.get():
+			if event.type == pygame.quit: sys.exit()
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_RETURN:
+					running = True
+					character = Player([400,100])
+			if event.type == pygame.MOUSEBUTTONDOWN:
+				endButton.click(event.pos)
+			if event.type == pygame.MOUSEBUTTONUP:
+				if endButton.release(event.pos):
+					running = True
+					character = Player([400,100])
+			if event.type == pygame.MOUSEBUTTONDOWN:
+				endButton2.click(event.pos)
+			if event.type == pygame.MOUSEBUTTONUP:
+				if endButton2.release(event.pos):
+					running = False
+					sys.exit()
+		
+		screen.fill(bgColor)
+		screen.blit(bgImage, bgRect)
+		screen.blit(endButton.image, endButton.rect)
+		screen.blit(endButton2.image, endButton2.rect)
+		pygame.display.flip()
+		#print "draw:", time.time() - st
+		clock.tick(1)
+
