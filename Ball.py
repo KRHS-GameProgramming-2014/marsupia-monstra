@@ -23,6 +23,9 @@ class Ball():
 		self.radius = (int(self.rect.height/2.0 + self.rect.width/2.0)/2) - 1
 		self.move()
 		self.living = True
+		distance = 0
+		
+		
 	  
 	def move(self):
 		self.rect = self.rect.move(self.speed)
@@ -46,6 +49,8 @@ class Ball():
 	def update(self, width, height):
 		self.move()
 		self.collideWall(width, height)
+		distance += 1
+		
 		
 	def distance(self, pt):
 		x1 = self.rect.center[0]

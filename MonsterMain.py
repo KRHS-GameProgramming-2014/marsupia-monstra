@@ -26,6 +26,8 @@ blocks = []
 balls = []
 enemies = []
 
+maxDistance = 100
+
 startButton = Button([width/2, height-300], 
 					 "Rsc/Buttons/Start Base.png", 
 					 "Rsc/Buttons/Start Clicked.png")
@@ -139,6 +141,12 @@ while True:
 		
 		
 		for ball in balls:
+			if ball.distance > maxDistance:
+				balls.remove(ball)
+		
+		
+		
+		for ball in balls:
 			if not ball.living:
 				balls.remove(ball)
 		for enemy in enemies:
@@ -160,14 +168,17 @@ while True:
 		
 		
 	endButton = Button([width/4, height/2], 
-					"Rsc/Death screen.png",
-					"Rsc/Death screen.png")
+					"Rsc/Buttons/Respawn.png",
+					"Rsc/Buttons/Respawn.png")
+	
+	endButton2 = Button([width/1.5, height/2], 
+					"Rsc/Buttons/Respawn.png",
+					"Rsc/Buttons/Respawn.png")
+									 
 
 									 
-	endCharacter = pygame.image.load("Rsc/Death screen.png",
-								"Rsc/Death screen.png")
 			
-	bgImage = pygame.image.load("Rsc/Death screen.png")
+	bgImage = pygame.image.load("Rsc/Death Screen.png")
 	
 	while running and not character.living:
 		for event in pygame.event.get():
@@ -182,11 +193,17 @@ while True:
 				if endButton.release(event.pos):
 					running = True
 					character = Player([400,100])
+			if event.type == pygame.MOUSEBUTTONDOWN:
+				endButton2.click(event.pos)
+			if event.type == pygame.MOUSEBUTTONUP:
+				if endButton2.release(event.pos):
+					running = False
+					sys.exit()
 		
 		screen.fill(bgColor)
 		screen.blit(bgImage, bgRect)
 		screen.blit(endButton.image, endButton.rect)
+		screen.blit(endButton2.image, endButton2.rect)
 		pygame.display.flip()
-		#print "draw:", time.time() - st
 		clock.tick(1)
 
