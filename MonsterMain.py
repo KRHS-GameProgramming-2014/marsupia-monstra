@@ -140,9 +140,6 @@ while True:
 			character.living = False
 		
 		
-		for ball in balls:
-			if ball.distance > maxDistance:
-				balls.remove(ball)
 		
 		
 		
